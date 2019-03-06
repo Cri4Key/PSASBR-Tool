@@ -1,6 +1,4 @@
-PSASBR Tool License
-===============
-The MIT License (MIT)
+MIT License
 
 Copyright (c) 2019 Cri4Key
 
