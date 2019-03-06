@@ -100,6 +100,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if not exist "$(TargetDir)Resources" mkdir "$(TargetDir)Resources"
-copy "$(ProjectDir)Resources\Copy2Build\*" "$(TargetDir)Resources"</PreBuildEvent>
+copy "$(ProjectDir)Resources\Copy2Build\*" "$(TargetDir)Resources"
+copy "$(SolutionDir)LICENSE.md" "$(TargetDir)LICENSE.txt"
+copy "$(SolutionDir)README.md" "$(TargetDir)README.txt"</PreBuildEvent>
   </PropertyGroup>
 </Project>
