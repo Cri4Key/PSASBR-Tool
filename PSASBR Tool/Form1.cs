@@ -32,9 +32,8 @@ namespace PSASBR_Tool
             }
             if (!File.Exists("Resources\\psp2gxt.exe"))
             {
-                button6.Enabled = false;
-                button6.Text = "Missing psp2gxt.exe";
-                MessageBox.Show("Missing psp2gxt.exe\nRetrieve it online and put it inside the \"Resources\" folder to repack textures", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                button6.Text = "Repack CTXR (No DDS)";
+                MessageBox.Show("Missing psp2gxt.exe\nRetrieve it online and put it inside the \"Resources\" folder to repack textures using the DDS format", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -237,7 +236,7 @@ namespace PSASBR_Tool
             using (OpenFileDialog CTXR = new OpenFileDialog())
             {
                 CTXR.Title = "Select a PSASBR CTXR file";
-                CTXR.Filter = "PSASBR Texture File|*.ctxr";
+                CTXR.Filter = "CTXR Texture File|*.ctxr";
                 CTXR.Multiselect = true;
 
                 if (CTXR.ShowDialog() == DialogResult.OK)
@@ -586,7 +585,7 @@ namespace PSASBR_Tool
             }
             catch (Exception)
             {
-                MessageBox.Show("Something went wrong while trying to run the process... Be sure that psp2gxt.exe is inside the Resources folder", "Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something went wrong while trying to run the process... Be sure that psp2gxt.exe is inside the Resources folder. Without it, the tool can't handle DDS files for repack, only GXT files.", "Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
@@ -610,7 +609,7 @@ namespace PSASBR_Tool
             using (OpenFileDialog CTXR = new OpenFileDialog())
             {
                 CTXR.Title = "Choose the source CTXR to convert into GXT";
-                CTXR.Filter = "PSASBR Texture File|*.ctxr";
+                CTXR.Filter = "CTXR Texture File|*.ctxr";
                 CTXR.Multiselect = true;
                 //CTXR.InitialDirectory = Directory.GetCurrentDirectory();
 
@@ -831,6 +830,11 @@ namespace PSASBR_Tool
                     label1.Text = "Ready!"; 
                 }
             }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("PSASBR Tool v1.0\n© 2019 Cri4Key\n\nThis software is OPEN SOURCE and licensed under the MIT license.");
         }
     }
 }

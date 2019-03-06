@@ -44,6 +44,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.button10 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -64,7 +65,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(615, 261);
+            this.button2.Location = new System.Drawing.Point(57, 258);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(116, 35);
             this.button2.TabIndex = 3;
@@ -75,7 +76,7 @@
             // button3
             // 
             this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(54, 261);
+            this.button3.Location = new System.Drawing.Point(57, 217);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(116, 35);
             this.button3.TabIndex = 4;
@@ -89,7 +90,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(116, 51);
             this.button5.TabIndex = 9;
-            this.button5.Text = "Analyse CTXR Textures";
+            this.button5.Text = "Analyse CTXR";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -99,7 +100,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(116, 51);
             this.button6.TabIndex = 10;
-            this.button6.Text = "Repack CTXR Texture";
+            this.button6.Text = "Repack CTXR";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -120,7 +121,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(132, 57);
             this.button8.TabIndex = 12;
-            this.button8.Text = "Repack CSND Sound";
+            this.button8.Text = "Repack CSND";
             this.button8.UseVisualStyleBackColor = true;
             // 
             // button9
@@ -130,7 +131,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(132, 57);
             this.button9.TabIndex = 14;
-            this.button9.Text = "Extract CSND Sound ";
+            this.button9.Text = "Extract CSND";
             this.button9.UseVisualStyleBackColor = true;
             // 
             // button11
@@ -139,7 +140,7 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(116, 51);
             this.button11.TabIndex = 16;
-            this.button11.Text = "Extract CTXR Texture";
+            this.button11.Text = "Extract CTXR";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
@@ -160,7 +161,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(132, 51);
             this.button4.TabIndex = 5;
-            this.button4.Text = "Repack PSARC Archive";
+            this.button4.Text = "Repack PSARC";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -170,7 +171,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 51);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Extract PSARC Archive";
+            this.button1.Text = "Extract PSARC";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -213,12 +214,23 @@
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(615, 258);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(116, 35);
+            this.button10.TabIndex = 23;
+            this.button10.Text = "About...";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 319);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -259,6 +271,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Button button10;
     }
 }
 
