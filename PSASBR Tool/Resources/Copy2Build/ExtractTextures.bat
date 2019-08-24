@@ -1,6 +1,6 @@
-FOR %%a IN ("GXT\*.gxt") DO ("Resources\ScarletTestApp.exe" %%a & MOVE "GXT\*.png" "EXTRACTED TEXTURES")
+FOR %%a IN ("Temp\*.gxt") DO ("Resources\ScarletTestApp.exe" %%a & MOVE "Temp\*.png" "EXTRACTED TEXTURES")
 
-DEL "GXT\*.gxt"
+DEL "Temp\*.gxt"
 
 echo Stripping the Image 0 string...
 

@@ -18,7 +18,6 @@ namespace PSASBR_Tool
         private void Form1_Load(object sender, EventArgs e)
         {
             player = new SoundPlayer(PSASBR_Tool.Properties.Resources.gui);
-            player.PlayLooping();
             LinkLabel.Link link = new LinkLabel.Link();
             link.LinkData = "https://github.com/Cri4Key";
             linkLabel1.Links.Add(link);
@@ -28,13 +27,14 @@ namespace PSASBR_Tool
                 button1.Text = "Missing psp2psarc.exe";
                 button4.Enabled = false;
                 button4.Text = "Missing psp2psarc.exe";
-                MessageBox.Show("Missing psp2psarc.exe\nRetrieve it online and put it inside the \"Resources\" folder to use the Package Tools", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Missing psp2psarc.exe\nRetrieve it online and put it inside the \"Resources\" folder to use the PSARC Tools", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             if (!File.Exists("Resources\\psp2gxt.exe"))
             {
                 button6.Text = "Repack CTXR (No DDS)";
                 MessageBox.Show("Missing psp2gxt.exe\nRetrieve it online and put it inside the \"Resources\" folder to repack textures using the DDS format", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            player.PlayLooping();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace PSASBR_Tool
             using (OpenFileDialog PSARC = new OpenFileDialog())
             {
                 PSARC.Title = "Select a PSARC file";
-                PSARC.Filter = "PSARC Archive|*.psarc";
+                PSARC.Filter = "PSARC Archive|*.psarc|All files|*.*";
                 PSARC.Multiselect = false;
                 //PSARC.InitialDirectory = Directory.GetCurrentDirectory();
 
@@ -105,7 +105,7 @@ namespace PSASBR_Tool
                     }
                     else
                     {
-                        MessageBox.Show("The file provided is not a valid PSARC!", "Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The chosen file is not a valid PSARC!", "Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 label1.Text = "Ready!";
@@ -141,7 +141,7 @@ namespace PSASBR_Tool
 
         private void CreatePSARC(string Directories, string name, string destinationDir, string strip)
         {
-            string CodeLine = "-y " + Directories + " --strip=\"" + strip + "\" --output=\"" + Path.GetFullPath(destinationDir) + name + "\"";
+            string CodeLine = "-y -a " + Directories + " --strip=\"" + strip + "\" --output=\"" + Path.GetFullPath(destinationDir) + name + "\"";
             CodeLine = CodeLine.Replace("\\", "/");
 
             string path = "Resources\\psp2psarc.exe";
@@ -231,11 +231,12 @@ namespace PSASBR_Tool
             }
         }
 
+        // Analyse CTXR button
         private void button5_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog CTXR = new OpenFileDialog())
             {
-                CTXR.Title = "Select a PSASBR CTXR file";
+                CTXR.Title = "Select PSASBR CTXR files";
                 CTXR.Filter = "CTXR Texture File|*.ctxr";
                 CTXR.Multiselect = true;
 
@@ -590,6 +591,7 @@ namespace PSASBR_Tool
             }
         }
 
+        // CTXR to GXT button
         private void button7_Click(object sender, EventArgs e)
         {
             string DestinationDir = "GXT\\";
@@ -701,9 +703,10 @@ namespace PSASBR_Tool
             Process.Start(e.Link.LinkData as string);
         }
 
+        // Extract Textures button
         private void button11_Click(object sender, EventArgs e)
         {
-            string DestinationDir = "GXT\\";
+            string DestinationDir = "Temp\\";
             string FinalDir = "EXTRACTED TEXTURES\\";
 
             DestinationDir = DestinationDir.Replace(".", null);
@@ -726,8 +729,8 @@ namespace PSASBR_Tool
 
             using (OpenFileDialog CTXR = new OpenFileDialog())
             {
-                CTXR.Title = "Choose the source CTXR to convert into PNG";
-                CTXR.Filter = "CTXR Texture File|*.ctxr";
+                CTXR.Title = "Choose the texture files you want to extract";
+                CTXR.Filter = "Texture Files|*.ctxr;*.gxt|All Files|*.*";
                 CTXR.Multiselect = true;
                 //CTXR.InitialDirectory = Directory.GetCurrentDirectory();
 
@@ -777,17 +780,43 @@ namespace PSASBR_Tool
                                                 jfifsign = reader.ReadUInt64();
                                                 if (jfifsign == 72134874563743744)
                                                 {
-                                                    // If JFIF found, notifies that it's not possible to create a GXT out of it
+                                                    // If JFIF found, straight extract the data and save it
                                                     isValid = true;
-                                                    MessageBox.Show("The CTXR file " + SingleTexture + " cannot be converted to a PS Vita Texture file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    finalpos = fs.Position;
+                                                    finalpos = length - (finalpos - 12);
+                                                    fs.Position = fs.Position - 12;
+
+                                                    txtrData = reader.ReadBytes((int)finalpos);
+                                                    try
+                                                    {
+                                                        File.WriteAllBytes(Path.Combine(Path.GetFullPath(FinalDir), Path.GetFileNameWithoutExtension(SingleTexture) + ".jfif"), txtrData);
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
                                                 }
                                             }
                                         }
                                         isValid = false;
                                     }
+                                    else if(txtrHeader == 5527623)
+                                    {
+                                        fs.Position = fs.Position - 4;
+
+                                        txtrData = reader.ReadBytes((int)fs.Length);
+                                        try
+                                        {
+                                            File.WriteAllBytes(Path.Combine(Path.GetFullPath(DestinationDir), Path.GetFileNameWithoutExtension(SingleTexture) + ".gxt"), txtrData);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
                                     else
                                     {
-                                        MessageBox.Show("The file " + Path.GetFileName(SingleTexture) + " is not valid!", "Bad CTXR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show("The file " + Path.GetFileName(SingleTexture) + " is not valid!", "Bad Texture", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                             }
@@ -807,7 +836,7 @@ namespace PSASBR_Tool
                         }
                     }
 
-                    label1.Text = "Converting to PNG...";
+                    label1.Text = "Converting to image...";
                     label1.Refresh();
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
@@ -834,7 +863,105 @@ namespace PSASBR_Tool
 
         private void button10_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("PSASBR Tool v1.0\n© 2019 Cri4Key\n\nThis software is OPEN SOURCE and licensed under the MIT license.");
+            MessageBox.Show("PSASBR Tool v1.2\n© 2019 Cri4Key\n\nThis software is OPEN SOURCE and licensed under the MIT license.");
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            int i, j;
+            string DestinationDir = "CANI FILES\\";
+            string FinalDir;
+            if (Directory.Exists(DestinationDir) == false)
+            {
+                Directory.CreateDirectory(DestinationDir);
+            }
+            byte[] animData = null;
+
+            using (OpenFileDialog bundle = new OpenFileDialog())
+            {
+                bundle.Title = "Choose the animation bundle file you want to extract";
+                bundle.Filter = "Bundle Animation File|*.bundled.xani";
+                bundle.Multiselect = false;
+
+                if (bundle.ShowDialog() == DialogResult.OK)
+                {
+                    label1.Text = "Extracting bundle...";
+                    label1.Refresh();
+
+                    foreach (string singleBundle in bundle.FileNames)
+                    {
+                        try
+                        {
+                            using (FileStream fs = new FileStream(@singleBundle, FileMode.Open, FileAccess.Read))
+                            {
+                                using (var reader = new BinaryReader(fs, new ASCIIEncoding()))
+                                {
+                                    uint numAnim = reader.ReadUInt32();
+                                    uint infoEndOfs = reader.ReadUInt32();
+                                    uint bundleOfs = reader.ReadUInt32();
+                                    uint bundleSize = reader.ReadUInt32();
+                                    long lastPos = fs.Position;
+
+                                    uint animInfoSize;
+                                    long animOfs;
+                                    long animSize;
+                                    char[] nameBuffer;
+                                    string animName;
+
+                                    for(i = 0; i < numAnim; i++)
+                                    {
+                                        fs.Position = lastPos;
+                                        animInfoSize = reader.ReadUInt32();
+                                        animOfs = reader.ReadUInt32();
+                                        animSize = reader.ReadUInt32();
+                                        nameBuffer = new char[(int)animInfoSize - 12];
+
+                                        for(j = 0; j < nameBuffer.Length && reader.PeekChar() != 0; j++)
+                                        {
+                                            nameBuffer[j] = reader.ReadChar();
+                                        }
+                                        fs.Seek(nameBuffer.Length - j, SeekOrigin.Current);
+                                        animName = new string(nameBuffer, 0, j);
+
+                                        //Console.WriteLine(fs.Position);
+                                        //Console.WriteLine(lastPos);
+                                        lastPos = fs.Position;
+                                        fs.Seek(0, SeekOrigin.Begin);
+                                        //Console.WriteLine(fs.Position);
+                                        fs.Seek(bundleOfs, SeekOrigin.Begin);
+                                        //Console.WriteLine(fs.Position);
+                                        fs.Seek(animOfs, SeekOrigin.Current);
+                                        //Console.WriteLine(fs.Position);
+
+                                        animData = reader.ReadBytes((int)animSize);
+                                        try
+                                        {
+                                            animName = animName.TrimStart(new char[] { '$', '/' });
+                                            animName = animName.Replace('/', '\\');
+                                            FinalDir = Path.Combine(Path.GetFullPath(DestinationDir), animName);
+                                            Directory.CreateDirectory(Path.GetDirectoryName(FinalDir));
+                                            //Console.WriteLine(FinalDir);
+                                            File.WriteAllBytes(FinalDir, animData);
+                                        }
+                                        catch(Exception ex)
+                                        {
+                                            MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                    MessageBox.Show("Done! Number of animations detected: " + numAnim, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString(), "Oops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    //MessageBox.Show("Done!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    label1.Text = "Ready!";
+                    Process.Start(DestinationDir);
+                }
+            }
         }
     }
 }

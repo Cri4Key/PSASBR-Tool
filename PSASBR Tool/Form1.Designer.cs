@@ -35,7 +35,6 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -114,25 +113,15 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button8
-            // 
-            this.button8.Enabled = false;
-            this.button8.Location = new System.Drawing.Point(48, 88);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(132, 57);
-            this.button8.TabIndex = 12;
-            this.button8.Text = "Repack CSND";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
             // button9
             // 
-            this.button9.Enabled = false;
-            this.button9.Location = new System.Drawing.Point(48, 19);
+            this.button9.Location = new System.Drawing.Point(52, 54);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(132, 57);
             this.button9.TabIndex = 14;
-            this.button9.Text = "Extract CSND";
+            this.button9.Text = "Extract Animation Bundle";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button11
             // 
@@ -140,7 +129,7 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(116, 51);
             this.button11.TabIndex = 16;
-            this.button11.Text = "Extract CTXR";
+            this.button11.Text = "Extract Textures";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
@@ -153,7 +142,7 @@
             this.groupBox1.Size = new System.Drawing.Size(230, 158);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Package Tools";
+            this.groupBox1.Text = "PSARC Tools";
             // 
             // button4
             // 
@@ -191,13 +180,12 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.button9);
-            this.groupBox3.Controls.Add(this.button8);
             this.groupBox3.Location = new System.Drawing.Point(551, 44);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(236, 158);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Sound Tools (Not available yet)";
+            this.groupBox3.Text = "Other Tools";
             // 
             // linkLabel1
             // 
@@ -262,7 +250,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.GroupBox groupBox1;
