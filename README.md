@@ -14,9 +14,10 @@ The use of the tool should be straightforward in most cases so I'll just give a 
 * __EXTRACT PSARC__: Extracts a PSARC Archive inside EXTRACTED PSARC folder. Game uses PSARC for everything, and assets are contained inside them (requires psp2psarc)
 * __REPACK PSARC__: Repacks the contents of the chosen folder inside a PSARC, needed for building a PSARC again in order to be used with the game (requires psp2psarc)
 * __Analyse CTXR__: Returns various info about the selected PSASBR Texture file(s) in CTXR format
-* __Extract CTXR__: Extracts the PSASBR Texture file(s) to PNG inside EXTRACTED TEXTURES folder
+* __Extract Textures__: Extracts the PSASBR (CTXR) or PS Vita (GXT) Texture file(s) to images inside EXTRACTED TEXTURES folder
 * __Convert CTXR to GXT__: Converts PSASBR Texture file(s) to GXT inside GXT folder. GXT is the standard format for PS Vita textures: if you have the means to work with them, you can use this.
 * __Repack CTXR__: Repacks a texture into a CTXR file in order to be used with the game. The program will ask for two files: the first file must be an existent, working CTXR of the texture you want to repack (original or already modded doesn't matter); the second file must be a DDS file (requires psp2gxt) or a GXT file containing the texture you want to repack. New repacked textures will be saved inside the folder REPACKED TEXTURES.
+* __Extract Animation Bundle__: Extracts the animation files of the game from the bundle files in which they are stored. Original paths and names are mantained.
 
 Notes
 =======
