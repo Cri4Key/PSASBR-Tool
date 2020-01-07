@@ -717,7 +717,12 @@ namespace PSASBR_Tool
 
             if (Directory.Exists(DestinationDir) == false)
             {
-                Directory.CreateDirectory(DestinationDir);
+                Directory.CreateDirectory(DestinationDir).Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            }
+            else
+            {
+                Directory.Delete(DestinationDir, true);
+                Directory.CreateDirectory(DestinationDir).Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             }
 
             if (Directory.Exists(FinalDir) == false)
