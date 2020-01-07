@@ -21,24 +21,16 @@ namespace PSASBR_Tool
             LinkLabel.Link link = new LinkLabel.Link();
             link.LinkData = "https://github.com/Cri4Key";
             linkLabel1.Links.Add(link);
-            if(!File.Exists("Resources\\psp2psarc.exe"))
-            {
-                button1.Enabled = false;
-                button1.Text = "Missing psp2psarc.exe";
-                button4.Enabled = false;
-                button4.Text = "Missing psp2psarc.exe";
-                MessageBox.Show("Missing psp2psarc.exe\nRetrieve it online and put it inside the \"Resources\" folder to use the PSARC Tools", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            if (!File.Exists("Resources\\psp2gxt.exe"))
-            {
-                button6.Text = "Repack CTXR (No DDS)";
-                MessageBox.Show("Missing psp2gxt.exe\nRetrieve it online and put it inside the \"Resources\" folder to repack textures using the DDS format", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
             player.PlayLooping();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!File.Exists("Resources\\psp2psarc.exe"))
+            {
+                MessageBox.Show("Missing psp2psarc.exe\nRetrieve it online and put it inside the \"Resources\" folder to use the PSARC Tools", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             using (OpenFileDialog PSARC = new OpenFileDialog())
             {
@@ -182,6 +174,12 @@ namespace PSASBR_Tool
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (!File.Exists("Resources\\psp2psarc.exe"))
+            {
+                MessageBox.Show("Missing psp2psarc.exe\nRetrieve it online and put it inside the \"Resources\" folder to use the PSARC Tools", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string DestinationDir = "REPACKED PSARC\\";
 
             DestinationDir = DestinationDir.Replace(".", null);
@@ -405,6 +403,11 @@ namespace PSASBR_Tool
         // Repack CTXR Button 
         private void button6_Click(object sender, EventArgs e)
         {
+            if (!File.Exists("Resources\\psp2gxt.exe"))
+            {
+                MessageBox.Show("Missing psp2gxt.exe\nRetrieve it online and put it inside the \"Resources\" folder to repack textures using the DDS format. Trying to repack a DDS texture will result into an error.", "Missing file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             string DestinationDir = "REPACKED TEXTURES\\";
 
             DestinationDir = DestinationDir.Replace(".", null);
@@ -863,7 +866,7 @@ namespace PSASBR_Tool
 
         private void button10_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("PSASBR Tool v1.2\n© 2019 Cri4Key\n\nThis software is OPEN SOURCE and licensed under the MIT license.");
+            MessageBox.Show("PSASBR Tool v1.2.1\n© 2019 Cri4Key\n\nThis software is OPEN SOURCE and licensed under the MIT license.");
         }
 
         private void button9_Click(object sender, EventArgs e)

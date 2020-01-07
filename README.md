@@ -22,15 +22,10 @@ The use of the tool should be straightforward in most cases so I'll just give a 
 Notes
 =======
 * In order to use everything the tool has to offer, you need the external components __psp2gxt.exe__ and __psp2psarc.exe__ (or __psarc.exe__ which must be renamed to __psp2psarc.exe__)
-	* For obvious reasons I cannot provide means to obtain them: just know they are components of the leaked PS Vita SDK, so all you have to be good at is using Google. Once you retrieve them, put them inside the __Resources__ folder, which is located inside the folder of the program. *The components mentioned must come from a SDK for firmware 1.80 or higher in order to work with PSASBR*
+	* For obvious reasons I cannot provide direct links to obtain them: they come from the leaked PS Vita SDK, so all you have to be good at is using Google. Look for either the 3.55 or 3.57 SDK. Once you retrieve them, put them inside the __Resources__ folder, which is located inside the folder of the program. If you are interested just in the PSARC tools, you may use the PS3 one as well, which may be easier to find (psarc.exe, rename it to psp2psarc.exe).
 
 * You can export DDS textures using [GIMP](https://www.gimp.org/) with its [DDS Plugin](https://code.google.com/archive/p/gimp-dds/downloads)
 	* More infos about the used compression and mipmaps will come later in a wiki. In the meantime you can use __Analyse Textures__ if you want to know the properties and be the closest possible to the original files.
-
-To Do
-=====
-* Support for CSND files (inside PSASBR they would allow partial audio modding)
-* Make a wiki for the PSASBR files in the repository
 
 Acknowledgements
 ================
