@@ -17,7 +17,7 @@ The use of the tool should be straightforward in most cases so I'll just give a 
 * __Extract Textures__: Extracts the PSASBR (CTXR) or PS Vita (GXT) Texture file(s) to images inside EXTRACTED TEXTURES folder
 * __Convert CTXR to GXT__: Converts PSASBR Texture file(s) to GXT inside GXT folder. GXT is the standard format for PS Vita textures: if you have the means to work with them, you can use this.
 * __Repack CTXR__: Repacks a texture into a CTXR file in order to be used with the game. The program will ask for two files: the first file must be an existent, working CTXR of the texture you want to repack (original or already modded doesn't matter); the second file must be a DDS file (requires psp2gxt) or a GXT file containing the texture you want to repack. New repacked textures will be saved inside the folder REPACKED TEXTURES.
-* __Extract Animation Bundle__: Extracts the animation files of the game from the bundle files in which they are stored. Original paths and names are mantained.
+* __Extract Animation Bundle__: Extracts the animation files of the game from the bundle files in which they are stored. Original paths and names are mantained. Animations can't be displayed in any way still, but if you are capable and willing to look after them and try to reverse them, use this option to extract them and pass on having to figure out the bundle.
 
 Notes
 =======
