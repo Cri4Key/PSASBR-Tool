@@ -5,12 +5,22 @@ using System.Text;
 
 namespace PSASBR_Tool.FileTypes
 {
+    /*
+     * 
+     * This class defines the file format that I reversed BUNDLED.XANI, used in the game PSASBR.
+     * It bundles animation files of the CANI format (EDGE ANIMATION FILES).
+     * The format consists into a header with generic info, a section of info identifying the
+     * offsets and sizes of the single CANI files stored, and then a section containing
+     * all the actual CANI files.
+     * 
+     */
     class XANI
     {
         private XANI_Header header;
         private CANI_Info[] info;
-        private List<byte[]> caniFiles; // Use until we figure out how CANI works
+        private List<byte[]> caniFiles; 
 
+        // Loads the XANI bundle in memory, ready for extraction
         public XANI(string path)
         {
             using (FileStream fs = new FileStream(@path, FileMode.Open, FileAccess.Read))
@@ -57,12 +67,13 @@ namespace PSASBR_Tool.FileTypes
             }
         }
 
+        // The header of the XANI file
         private class XANI_Header
         {
-            public uint numCANI;
-            public uint xaniSize;
-            public uint bundleOffset;
-            public uint bundleSize;
+            public uint numCANI;    // Number of CANI files stored inside
+            public uint xaniSize;   // Size of the entire XANI file
+            public uint bundleOffset;   // Starting offset of the stored files
+            public uint bundleSize;     // Size of the stored files
 
             public XANI_Header(uint numCANI, uint xaniSize, uint bundleOffset, uint bundleSize)
             {
@@ -73,13 +84,14 @@ namespace PSASBR_Tool.FileTypes
             }
         }
 
+        // Info about each CANI file retrieved by the information section
         private class CANI_Info
         {
-            public uint caniInfoSize;
-            public uint caniOffset;
-            public uint caniSize;
-            public string caniFullName;
-            public int padding_len;
+            public uint caniInfoSize;   // Size of the information about the CANI file
+            public uint caniOffset;     // Offset of the file inside the bundle
+            public uint caniSize;       // Size of the CANI file
+            public string caniFullName; // Full path of the CANI file, including folders and full name
+            public int padding_len;     // Data is padded, and this defines how big it is between each CANI file
 
             public CANI_Info(uint caniInfoSize, uint caniOffset, uint caniSize, string caniFullName, int paddingLength)
             {
