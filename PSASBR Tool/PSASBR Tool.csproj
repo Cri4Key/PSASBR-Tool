@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PSASBR_Tool</RootNamespace>
     <AssemblyName>PSASBR Tool</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileTypes\Animations\XANI.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,26 +82,34 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\Copy2Build\strip.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon1.ico" />
     <Content Include="Properties\Icon1.ico" />
-    <Content Include="Resources\Copy2Build\Scarlet.dll" />
-    <Content Include="Resources\Copy2Build\Scarlet.IO.CompressionFormats.dll" />
-    <Content Include="Resources\Copy2Build\Scarlet.IO.ContainerFormats.dll" />
-    <Content Include="Resources\Copy2Build\Scarlet.IO.ImageFormats.dll" />
-    <Content Include="Resources\Copy2Build\ScarletTestApp.exe" />
-    <None Include="Resources\Copy2Build\ExtractTextures.bat" />
-    <None Include="Resources\gui.wav" />
     <None Include="Resources\PSASBR_Tool.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Scarlet.IO.ImageFormats\Scarlet.IO.ImageFormats.csproj">
+      <Project>{4e7b19c8-1983-41fe-98e4-0532137638fc}</Project>
+      <Name>Scarlet.IO.ImageFormats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scarlet\Scarlet.csproj">
+      <Project>{b1cc2b0e-4226-4ac5-9940-900a8847201a}</Project>
+      <Name>Scarlet</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>if not exist "$(TargetDir)Resources" mkdir "$(TargetDir)Resources"
-copy "$(ProjectDir)Resources\Copy2Build\*" "$(TargetDir)Resources"
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(TargetDir)Resources" mkdir "$(TargetDir)Resources"
+move "$(TargetDir)Scarlet.dll" "$(TargetDir)Resources\Scarlet.dll"
+move "$(TargetDir)Scarlet.pdb" "$(TargetDir)Resources\Scarlet.pdb"
+move "$(TargetDir)Scarlet.IO.ImageFormats.dll" "$(TargetDir)Resources\Scarlet.IO.ImageFormats.dll"
+move "$(TargetDir)Scarlet.IO.ImageFormats.pdb" "$(TargetDir)Resources\Scarlet.IO.ImageFormats.pdb"
 copy "$(SolutionDir)LICENSE.md" "$(TargetDir)LICENSE.txt"
-copy "$(SolutionDir)README.md" "$(TargetDir)README.txt"</PreBuildEvent>
+copy "$(SolutionDir)README.md" "$(TargetDir)README.txt"</PostBuildEvent>
   </PropertyGroup>
 </Project>

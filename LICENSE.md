@@ -1,6 +1,7 @@
 PSASBR Tool License
 ===============
 
+```
 MIT License
 
 Copyright (c) 2019 Cri4Key
@@ -22,10 +23,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
 
 Scarlet License
 ===============
-License for Scarlet which is used by the tool:
 
 ```
 The MIT License (MIT)
